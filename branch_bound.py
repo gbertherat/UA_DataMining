@@ -1,19 +1,30 @@
-from numpy import math
-import file as f
 import math
-import Tree 
+import tree
+from Node import Node
 
 def branch_bound(scenario):
-
-    bases = f.getAllBasesInScenario(scenario)
-    sorted_bases = sorted(bases, key=lambda x: x.getRatio(), reverse=True)
+    tree.buildTree(scenario)
     
-    path = "Scenarios/Liste_Entreprises/Liste_Ent"
-    entreprises = f.getList(path, scenario)
-
-    upper_bound = math.inf
-    lower_bound = 0
-    current_best = None
+    
+    #A = [Node()]
+    #UB = math.inf
+#
+    #path = "Scenarios/Liste_Entreprises/Liste_Ent"
+    #
+    #currentbest = None
+    #while len(A) != 0:
+    #    A = sorted(A, key=lambda x: x.getCost(), reverse=True)
+    #    
+    #    k = A[0]
+    #    A.remove(k)
+    #    
+    #    for i in range(1, len(k.getChildren())):
+    #        if k.getCost() <= UB:
+    #            if len(k.getChildren()[i]) == 0:
+    #                UB = k.getChildren()[i].getCost()
+    #                currentbest = k.getChildren()[i]
+    #            else:
+    #                A.append(k.getChildren()[i])
 
 
 

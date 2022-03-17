@@ -1,31 +1,28 @@
+from Node import Node
+import file as f
+import copy
 
-class Tree:
-    def __init__(self, entreprises, cost:int, leftNode, rightNode):
-        self.cost = cost
-        self.entreprises = entreprises
-        self.leftNode = leftNode
-        self.rightNode = rightNode 
+def buildTree(scenario):
+    root = Node([], 0, [])
     
-    def getCost(self) -> int: 
-        return self.cost
-
-    def setCost(self, new_cost):
-        self.cost = new_cost
+    bases = f.getAllBasesInScenario(scenario)
+    sorted_bases = sorted(bases, key=lambda x: x.getCost(), reverse=True) 
     
-    def getEntreprise(self): 
-        return self.entreprises
-
-    def addEntrprise(self, entreprise):
-        self.entreprises.append(entreprise)
-
-    def getLeftNode(self): 
-        return self.leftNode
+    path = "Scenarios/Liste_Entreprises/Liste_Ent"
+    etpScenario = f.getList(path, scenario)
     
-    def setLeftNode(self, leftNode):
-        self.leftNode = leftNode
+    curParent = root
+    for base in sorted_bases:
+        child_node = Node(copy.deepcopy(curParent.getEntreprises()), 
+                         curParent.getCost(), 
+                         [])
         
-    def getRightNode(self): 
-        return self.rightNode
-    
-    def setRightNode(self, rightNode):
-        self.rightNode = rightNode
+        for entreprise in etpScenario:
+            if entreprise not in child_node.getEntreprises() and f.isEntrepriseInBase(entreprise, base.getFilename()):
+                child_node.addEntreprise(entreprise)
+                
+                if root.getCost() == child_node.getCost():
+                    child_node.setCost(child_node.getCost() + f.getBaseCost(base))
+                    
+        curParent.addChild(child_node)
+        curParent = child_node
