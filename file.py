@@ -2,7 +2,7 @@ import os
 
 from Base import Base
            
-def getList(path, i):
+def getList(path, i): # Permet de récupérer les données d'un fichier (hors coût)
     if path == "" or i == None :
         return None
 
@@ -17,7 +17,7 @@ def getList(path, i):
                         names.append(line.replace("\n",""))
     return names
 
-def getAllBases():
+def getAllBases(): # Permet de récupérer toutes les bases
     path = "Bases/"
     
     files = []
@@ -27,7 +27,7 @@ def getAllBases():
             files.append(filename)
     return files
 
-def getAllBasesInScenario(i):
+def getAllBasesInScenario(i): # Permet de récupérer toutes les bases dans un scénario
     bases = []
     path = 'Scenarios/Liste_Bases/Liste_Bases'     
     
@@ -41,7 +41,7 @@ def getAllBasesInScenario(i):
     return bases
 
 
-def getBaseCost(base):
+def getBaseCost(base): # Permet de récupérer le cout d'une base
     if(base == ""):
         return None
     
@@ -51,7 +51,7 @@ def getBaseCost(base):
         with open(path + base, 'r') as file:
             return int(file.readline().replace("\n",""))
 
-def getBaseContent(base):
+def getBaseContent(base): # Permet de récupérer le contenu d'une base
     if(base == ""):
         return None
     
@@ -65,7 +65,7 @@ def getBaseContent(base):
                     names.append(line.replace('\n',''))
     return names
             
-def isEntrepriseInBase(entreprise, base):
+def isEntrepriseInBase(entreprise, base): # Permet de vérifier si une entreprise est présente dans une base
     if(os.path.isfile(base)):
         with open(base, 'r') as file:
             for i, line in enumerate(file):
